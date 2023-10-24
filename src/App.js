@@ -1,37 +1,18 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProductList from './hw pages/components/ProductList';
+import Navbar from './hw pages/components/Navbar';
 
 const App = () => {
-    const user = useSelector((state) => state);
-    const dispatch = useDispatch();
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        dispatch({ type: "SET_USER", payload: { [name]: value } });
-    };
-
     return (
-        <div className="App">
-            <input
-                type="text"
-                placeholder="Имя"
-                name="name"
-                value={user.name}
-                onChange={handleChange}
-            />
-            <input
-                type="number"
-                placeholder="Возраст"
-                name="age"
-                value={user.age}
-                onChange={handleChange}
-            />
-            <select name="gender" value={user.gender} onChange={handleChange}>
-                <option value="male">Мужчина</option>
-                <option value="female">Женщина</option>
-            </select>
-        </div>
+        <Router>
+            <div>
+                <Navbar />
+                <Routes>
+                    <Route path="/" exact component={ProductList} />
+                </Routes>
+            </div>
+        </Router>
     );
 };
 
