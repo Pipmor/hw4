@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS_SUCCESS, ADD_TO_CART } from '../action/productAction';
+import * as actionTypes from '../action/actionTypes';
 
 const initialState = {
     products: [],
@@ -7,12 +7,12 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_PRODUCTS_SUCCESS:
+        case actionTypes.FETCH_PRODUCTS_SUCCESS:
             return {
                 ...state,
                 products: action.payload,
             };
-        case ADD_TO_CART:
+        case actionTypes.ADD_TO_CART:
             const productId = action.payload;
             return {
                 ...state,

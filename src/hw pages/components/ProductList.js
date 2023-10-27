@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchProductsSuccess, addToCart } from '../action/productAction';
+import { fetchProducts, addToCart } from '../action/productAction'; // Импортируем экшены
 
 const ProductList = ({ products, fetchProducts, addToCart }) => {
     useEffect(() => {
-        fetch('../data/products.json')
-            .then((response) => response.json())
-            .then((data) => {
-                fetchProducts(data);
-            });
+        fetchProducts(10, 10);
     }, [fetchProducts]);
 
     return (
@@ -29,9 +25,9 @@ const mapStateToProps = (state) => ({
     products: state.products.products,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    fetchProducts: (products) => dispatch(fetchProductsSuccess(products)),
-    addToCart: (productId) => dispatch(addToCart(productId)),
-});
+const mapDispatchToProps = {
+    fetchProducts,
+    addToCart,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

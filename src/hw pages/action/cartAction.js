@@ -6,11 +6,6 @@ export const fetchProductsSuccess = (products) => ({
     payload: products,
 });
 
-export const addToCart = (productId) => ({
-    type: actionTypes.ADD_TO_CART,
-    payload: productId,
-});
-
 export const fetchProducts = (limit, skip) => {
     return (dispatch) => {
         axios.get(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
@@ -22,3 +17,8 @@ export const fetchProducts = (limit, skip) => {
             });
     };
 };
+
+export const addToCart = (productId) => ({
+    type: actionTypes.ADD_TO_CART,
+    payload: productId,
+});
