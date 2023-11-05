@@ -1,12 +1,19 @@
 import React from 'react';
-import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import store from './api/store';
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './action/postsSlice';
 import App from './App';
 
-createRoot().render(
+const store = configureStore({
+    reducer: rootReducer,
+});
+
+const root = document.getElementById('root');
+
+const reactRoot = createRoot(root);
+reactRoot.render(
     <Provider store={store}>
         <App />
-    </Provider>,
-    document.getElementById('root')
+    </Provider>
 );

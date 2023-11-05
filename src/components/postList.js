@@ -1,28 +1,42 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, deletePost } from '../api/postsSlice';// Импорт fetchPosts и deletePost из файла postsSlice
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import EditPostForm from './editpostForm';
+import { updatePost } from '../action/postsSlice';
+import '../style/postList.css'
 
 const PostList = () => {
-    const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchPosts());// Загрузка постов при первой загрузке компонента
-    }, [dispatch]);
+    const [editingPostId, setEditingPostId] = useState(null);
 
-    const handleDelete = (postId) => {
-        dispatch(deletePost(postId));
+    const handleEditClick = (postId) => {
+        setEditingPostId(postId);
+    };
+
+    const handleSave = (postId, updatedTitle, updatedContent) => {
+        dispatch(updatePost({ id: postId, title: updatedTitle, content: updatedContent }));
+        setEditingPostId(null);
     };
 
     return (
-        <ul>
+        <div>
             {posts.map((post) => (
-                <li key={post.id}>
-                    {post.title} - {post.body}
-                    <button onClick={() => handleDelete(post.id)}>Delete</button>
-                </li>
+                <div key={post.id}>
+                    <h2>{post.title}</h2>
+                    <p>{post.content}</p>
+                    <button onClick={() => handleEditClick(post.id)}>Редактировать</button>
+                    {editingPostId === post.id && (
+                        <EditPostForm
+                            postId={post.id}
+                            currentTitle={post.title}
+                            currentContent={post.content}
+                            onSave={handleSave}
+                        />
+                    )}
+                </div>
             ))}
-        </ul>
+        </div>
     );
 };
 

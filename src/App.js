@@ -1,16 +1,15 @@
 import React from 'react';
-import PostForm from './components/postForm';
+import { BrowserRouter as Router, Route , Routes } from 'react-router-dom';
 import PostList from './components/postList';
 
-
-function App() {
+const App = () => {
     return (
-        <div className="App">
-            <h1>Post App</h1>
-            <PostForm />
-            <PostList />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" exact component={PostList} />
+            </Routes>
+        </Router>
     );
-}
+};
 
 export default App;
